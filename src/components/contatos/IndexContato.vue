@@ -2,7 +2,7 @@
   <div class="columns is-multiline">
     <single-contato v-for="contact in contacts" 
                     :name="contact.nome"
-                    :number="contact.aniversario"
+                    :id="contact.id"
                     :key="contact">
     </single-contato>
   </div>
@@ -16,6 +16,10 @@ export default {
     data(){
         return{
             contacts: [
+              {
+                nome: "jose",
+                id: 3
+              }
             ],
             teste: {},
         }

@@ -15,7 +15,7 @@
           </div>
         </div>
         <footer class="options-footer">
-          <a class="options-footer__item">Edit</a>
+          <router-link :to="{name: 'EditContact', params: { id: id } }" class="options-footer__item">Edit</router-link>
           <a class="options-footer__item options-footer__item--delete">Delete</a>
         </footer>
       </div>

@@ -2,7 +2,7 @@
     <div class="box">
         <h1 class="title is-5">Informe os dados para cadastrar o contato</h1>
         <div class="columns">
-          <form action="/" class="column is-half">
+          <form class="column is-half">
                 <div class="field">
                   <label class="label">Nome</label>
                   <p class="control">
@@ -13,7 +13,7 @@
                 <div class="field">
                   <label class="label">Apelido</label>
                   <p class="control">
-                    <input class="input" type="text" placeholder="Apelido para o contato">
+                    <input  v-model="contato.apelido" class="input" type="text" placeholder="Apelido para o contato">
                   </p>
                 </div>
 
@@ -27,7 +27,14 @@
                 <div class="field">
                   <label class="label">Telefone para contato</label>
                   <p class="control">
-                    <input  class="input" type="text" placeholder="Numero do telefone">
+                    <input v-model="contato.telefone" class="input" type="text" placeholder="Numero do telefone">
+                  </p>
+                </div>
+
+                <div class="field">
+                  <label class="label">Aniversário do contato</label>
+                  <p class="control">
+                    <input  v-model="contato.aniversario" class="input" type="text" placeholder="Data de aniversário ex: ano-mês-dia">
                   </p>
                 </div>
 
@@ -47,6 +54,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     data(){
         return{
@@ -56,25 +64,27 @@ export default {
               email: "",
               telefone: "",
               aniversario: "",
+              foto: "Oin"
             }
         }
     },
     methods:{
       pushData: function(){
-        var formData = new FormData();
 
-        // append string
-        formData.append('avatar', this.$refs.avatar.files[0]);
+        let formData = new FormData();
+        //console.log(this.$refs.avatar.files[0])
+        //formData.append('foto', this.$refs.avatar.files[0]);
         formData.append('nome',this.contato.nome);
         formData.append('email',this.contato.email);
-
-        for (var pair of formData.entries())
-        {
-          console.log(pair[0]);
-          console.log(pair[1]);
-          console.log(";;;;");
-          
-        }
+        formData.append('apelido',this.contato.apelido);
+        formData.append('telefone',this.contato.telefone);
+        formData.append('aniversario',this.contato.aniversario);
+        
+        var vm = this;
+        axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+        axios.post('http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos',
+          formData
+        )
       }
     }
 }

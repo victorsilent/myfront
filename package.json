@@ -9,8 +9,10 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "form-data": "^2.1.4",
     "vue": "^2.2.1",
-    "vue-router": "^2.3.1"
+    "vue-router": "^2.3.1",
+    "vuejs-datepicker": "^0.7.2"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",

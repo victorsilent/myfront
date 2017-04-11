@@ -6,8 +6,7 @@
         <ul class="menu-list">
         <li><router-link to="/">Inicio</router-link></li>
         <li><router-link to="/cadastrar">Cadastrar Contato</router-link></li>
-        <li><router-link to="/buscar">Buscar Contatos</router-link></li>
-        <li><router-link to="/listar">Buscar Por Data</router-link></li>
+        <li><router-link to="/listar">Buscar Contatos</router-link></li>
         </ul>
     </aside>
 </template>

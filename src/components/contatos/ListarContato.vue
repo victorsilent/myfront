@@ -1,17 +1,96 @@
-<template>
-    <h1>Listar</h1>
+<template lang="html">
+<div class="box">
+	<div class="field has-addons" v-if="picked === 'aniversario'">
+	 	<input class="input" type="text" placeholder="Data inicial ex: Ano-mês-dia" v-model="de">
+	 	<input class="input" type="text" placeholder="Data final ex: Ano-mês-dia" v-model="ate">
+	</div>
+	<div v-else class="field">
+		<p class="control">
+			<input class="input" type="text" placeholder="Digite o termo buscado" v-model="termoBuscado">
+		</p>
+	</div>
+	<div class="field">
+		<p class="control">
+			<label class="radio">
+			  <input type="radio" name="type" value="nome" v-model="picked">
+			  	Nome
+			</label>
+			<label class="radio">
+				<input type="radio" name="type" value="apelido" v-model="picked">
+				Apelido
+			</label>
+			<label class="radio">
+			  <input type="radio" name="type" value="aniversario" v-model="picked">
+			  	Aniversario
+			</label>
+		</p>
+	</div>
+	<div class="field">
+		<p class="control">
+			<button class="button is-primary" @click.prevent="searchContact">Buscar</button>
+		</p>
+	</div>
+	
+
+	<div class="columns is-multiline">
+	    <single-contato v-for="contact in contacts" 
+	                    :name="contact.nome"
+	                    :id="contact.id"
+	                    :key="contact">
+	    </single-contato>
+  </div>
+</div>
+
+
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker'
+import SingleContato from "./SingleContato.vue";
+import axios from "axios";
+
 export default {
+	components: {
+		SingleContato,
+		Datepicker
+	},
     data(){
         return{
-            
+            picked: "nome",
+            termoBuscado: "",
+            de: "",
+            ate: "",
+            contacts: [
+            ],
         }
+    },
+    methods: {
+    	searchContact: function(){
+			var vm = this;
+			console.log(this.urlAPI);
+			axios.get(this.urlAPI)
+			.then(function (response) {
+			vm.contacts = response.data;
+			})
+			.catch(function (error) {
+			console.log(error);
+			});
+    	}
+    },
+    computed: {
+    	urlAPI(){
+    		if(this.picked === "nome" || this.picked === "apelido"){
+    			return "http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos?"+this.picked + "=" + this.termoBuscado
+    		}
+    		return "http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos?de=" + this.de + "&ate=" + this.ate
+    	}
     }
 }
 </script>
 
 <style lang="scss">
+    .input{
+		margin: 5px;
+    }
     
 </style>

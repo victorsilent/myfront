@@ -3,7 +3,6 @@ import IndexContato from './components/contatos/IndexContato.vue'
 import EditarContato from './components/contatos/EditarContato.vue'
 import ListarContato from './components/contatos/ListarContato.vue'
 import CadastrarContato from './components/contatos/CadastrarContato.vue'
-import BuscarContato from './components/contatos/BuscarContato.vue'
 
 export const routes = [
     //Routes priority is ordered by order of route definition, the sooner a
@@ -12,5 +11,4 @@ export const routes = [
     { path: '/edit/:id', component: EditarContato, name: "EditContact"},
     { path: '/listar', component: ListarContato, name: 'Filtrar Por Data' },
     { path: '/cadastrar', component: CadastrarContato, name: 'Cadastrar Contato' },
-    { path: '/buscar', component: BuscarContato, name: 'Buscar Contato' },
 ];

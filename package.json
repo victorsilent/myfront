@@ -9,6 +9,9 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "axios": "^0.16.1",
+    "bulma": "^0.4.0",
+    "datepicker": "0.0.0",
     "form-data": "^2.1.4",
     "vue": "^2.2.1",
     "vue-router": "^2.3.1",

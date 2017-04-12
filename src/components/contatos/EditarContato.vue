@@ -1,7 +1,6 @@
 <template>
     <div class="box">
         <h1 class="title is-5">Informe os dados para editar o contato</h1>
-        <span></span>
         <div class="columns">
           <form action="/" class="column is-half">
 	            <div class="field">
@@ -33,21 +32,22 @@
 	            </div>
 
 	            <div class="field">
-	              <label class="label">Aniversário do contato</label>
-	              <p class="control">
-	                <input  v-model="contato.aniversario" class="input" type="text" placeholder="Data de aniversário ex: ano-mês-dia">
-	              </p>
-	            </div>
-
+                <label class="label">Aniversário do contato</label>
                 <p class="control">
-                  <button @click.prevent="pushData" type="submit" class="button is-primary">Editar Contato</button>
+                  <datepicker placeholder="Selecione o aniversario" inputClass="input" format="dd-MM-yyyy" v-model="contato.aniversario"></datepicker>
                 </p>
+              </div>
+
+              <p class="control">
+                <button @click.prevent="pushData" type="submit" class="button is-primary">Editar Contato</button>
+              </p>
           </form>
         </div>
     </div>
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker'
 import axios from "axios";
 export default {
     data(){
@@ -57,7 +57,7 @@ export default {
     },
     created(){
 
-    	var vm = this;
+    	const vm = this;
       axios.get("http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos/" + this.$route.params.id)
       .then(function (response) {
         vm.contato = response.data[0];
@@ -69,25 +69,30 @@ export default {
     methods:{
 
       pushData: function(){
-        // var formData = new FormData();
-        
-        // formData.append('nome',this.contato.nome);
-        // formData.append('email',this.contato.email);
-        // formData.append('apelido',this.contato.apelido);
-        // formData.append('telefone',this.contato.telefone);
-        // formData.append('aniversario',this.contato.aniversario);
+        const formData = new FormData();
 
-        var vm = this;
+        formData.append('nome',this.contato.nome);
+        formData.append('email',this.contato.email);
+        formData.append('apelido',this.contato.apelido);
+        formData.append('telefone',this.contato.telefone);
+        formData.append('aniversario',this.contato.aniversario);
+
+        const vm = this;
         axios.put('http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos/'+ vm.contato.id, 
           vm.contato
         )
         .then(function (response) {
-          console.log(response);
+          if(response.status === 200){
+            vm.$router.push("/");
+          }
         })
         .catch(function (error) {
           console.log(error);
         });
       }
+    },
+    components:{
+      Datepicker
     }
 }
 </script>

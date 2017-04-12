@@ -1,34 +1,52 @@
 <template>
-    <div class="column is-6-tablet is-4-desktop">
+    <div v-show="!deleted" class="column is-6-tablet is-4-desktop">
       <div class="contact">
         <div class="contact__image">
           <figure class="image is-64x64">
-            <img src="http://bulma.io/images/placeholders/128x128.png">
+            <img :src="'https://contatosf30.s3-sa-east-1.amazonaws.com/' + foto">
           </figure>
         </div>
         <div class="contact__info">
           <div class="contact__info__name">
-            {{name}}
+            {{nome}} - {{apelido}}
           </div>
           <div class="contact__info__number">
-            {{number}}
+            {{telefone}}
+          </div>
+          <div class="contact__info__number">
+            
+            {{aniversario | aniversarioFilter}}
           </div>
         </div>
         <footer class="options-footer">
-          <router-link :to="{name: 'EditContact', params: { id: id } }" class="options-footer__item">Edit</router-link>
-          <a class="options-footer__item options-footer__item--delete">Delete</a>
+          <router-link :to="{name: 'EditContact', params: { id: idUser } }" class="options-footer__item">Edit</router-link>
+          <a @click="deteleContact()" class="options-footer__item options-footer__item--delete">Delete</a>
         </footer>
       </div>
     </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
-    props: ["name", "number", "id"],
+    props: ["nome", "telefone", "idUser", "apelido", "foto", "aniversario"],
     data(){
         return{
-            
+            deleted: false,
         }
+    },
+    methods:{
+      deteleContact(){
+        this.deleted = true;
+        var vm = this;
+        axios.delete('http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos/'+vm.idUser)
+        .then(function (response) {
+          vm.$router.push("/");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      }
     }
 }
 </script>

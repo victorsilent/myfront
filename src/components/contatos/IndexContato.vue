@@ -1,8 +1,12 @@
 <template>
   <div class="columns is-multiline">
     <single-contato v-for="contact in contacts" 
-                    :name="contact.nome"
-                    :id="contact.id"
+                    :nome="contact.nome"
+                    :apelido="contact.apelido"
+                    :telefone="contact.telefone"
+                    :aniversario="contact.aniversario"
+                    :foto="contact.foto"
+                    :idUser="contact.id"
                     :key="contact">
     </single-contato>
   </div>
@@ -15,13 +19,7 @@ import axios from "axios";
 export default {
     data(){
         return{
-            contacts: [
-              {
-                nome: "jose",
-                id: 3
-              }
-            ],
-            teste: {},
+            contacts: [],
         }
     },
     created(){

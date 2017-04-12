@@ -30,11 +30,10 @@
                     <input v-model="contato.telefone" class="input" type="text" placeholder="Numero do telefone">
                   </p>
                 </div>
-
                 <div class="field">
                   <label class="label">Aniversário do contato</label>
                   <p class="control">
-                    <input  v-model="contato.aniversario" class="input" type="text" placeholder="Data de aniversário ex: ano-mês-dia">
+                    <datepicker placeholder="Selecione o aniversario" inputClass="input" format="dd-MM-yyyy" v-model="contato.aniversario"></datepicker>
                   </p>
                 </div>
 
@@ -54,6 +53,7 @@
 </template>
 
 <script>
+import Datepicker from 'vuejs-datepicker'
 import axios from "axios";
 export default {
     data(){
@@ -63,28 +63,46 @@ export default {
               apelido: "",
               email: "",
               telefone: "",
-              aniversario: "",
-              foto: "Oin"
+              aniversario: ""
             }
         }
     },
+    components: {
+      Datepicker
+    },
     methods:{
       pushData: function(){
+//         app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   // Request methods you wish to allow
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//   // to the API (e.g. in case you use sessions)
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type,X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5,  D$
+//   next();
+// });
 
         let formData = new FormData();
         //console.log(this.$refs.avatar.files[0])
-        //formData.append('foto', this.$refs.avatar.files[0]);
+        let datestr = (new Date(this.contato.aniversario)).toISOString();
+        formData.append('avatar', this.$refs.avatar.files[0]);
         formData.append('nome',this.contato.nome);
         formData.append('email',this.contato.email);
         formData.append('apelido',this.contato.apelido);
         formData.append('telefone',this.contato.telefone);
-        formData.append('aniversario',this.contato.aniversario);
+        formData.append('aniversario',datestr);
         
         var vm = this;
         axios.defaults.headers.post['Content-Type'] = 'multipart/form-data';
-        axios.post('http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos',
+        axios.post('http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos/',
           formData
         )
+        .then(function (response) {
+          vm.$router.push("/");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
       }
     }
 }
@@ -93,3 +111,5 @@ export default {
 <style lang="scss">
     
 </style>
+
+

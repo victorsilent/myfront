@@ -1,5 +1,5 @@
 <template>
-    <aside class="menu">
+    <aside :class="stateFunction" class="menu animated">
         <p class="menu-label">
         Contato App
         </p>
@@ -15,8 +15,37 @@
 export default {
     data(){
         return{
-            
+            classIn: true,
+            classOut: false,
         }
+    },
+    computed: {
+      stateFunction(){
+        return {
+          slideInLeft: this.classIn,
+          slideOutLeft: this.classOut,
+        }
+      }
+    },
+    beforeMount () {
+      const vm = this;
+      const myDocument = window;
+      const WIDTH = 768;
+      const handler = () => {
+        if (myDocument.innerWidth <= 768){
+          vm.classIn = false;
+          vm.classOut = true;
+          document.querySelector('.menu').style.width = 0;
+          document.querySelector('.main-app').style.marginLeft = 0;
+        }else{
+          vm.classIn = true;
+          vm.classOut = false;
+          document.querySelector('.menu').style.width = "168px";
+          document.querySelector('.main-app').style.marginLeft = "168px";
+        }
+      }
+      document.addEventListener('visibilitychange', handler)
+      window.addEventListener('resize', handler)
     }
 }
 </script>
@@ -43,5 +72,6 @@ export default {
   .main-app{
     margin-left: 168px;
     padding: 20px;
+    transition: all 500ms ease-in 100ms; 
   }
 </style>

@@ -24,9 +24,10 @@ export default {
     },
     created(){
       var vm = this;
-      axios.get("http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos")
+      
+      axios.get("http://ec2-34-223-234-6.us-west-2.compute.amazonaws.com:3000/contatos")
       .then(function (response) {
-        vm.contacts = response.data;
+        vm.contacts = response.data;      
       })
       .catch(function (error) {
         console.log(error);

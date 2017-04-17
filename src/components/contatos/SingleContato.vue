@@ -39,7 +39,7 @@ export default {
       deteleContact(){
         this.deleted = true;
         var vm = this;
-        axios.delete('http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos/'+vm.idUser)
+        axios.delete('http://ec2-34-223-234-6.us-west-2.compute.amazonaws.com:3000/contatos/'+vm.idUser)
         .then(function (response) {
           vm.$router.push("/");
         })

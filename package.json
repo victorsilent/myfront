@@ -13,6 +13,8 @@
     "bulma": "^0.4.0",
     "datepicker": "0.0.0",
     "form-data": "^2.1.4",
+    "v-mask": "^1.1.0",
+    "vee-validate": "^2.0.0-beta.25",
     "vue": "^2.2.1",
     "vue-router": "^2.3.1",
     "vuejs-datepicker": "^0.7.2"

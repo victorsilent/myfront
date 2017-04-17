@@ -1,12 +1,19 @@
 import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
+import VueMask from 'v-mask'
+import VeeValidate from 'vee-validate';
 import { routes } from './routes'
 
+
+Vue.use(VeeValidate);
 Vue.use(VueRouter);
+Vue.use(VueMask);
 
 Vue.filter('aniversarioFilter', function (data) {
-  return data.slice(0,10);
+  let date = new Date(data);
+  date.setHours(date.getHours() + 3)
+  return date.toLocaleDateString('pt-BR');
 });
 
 const router = new VueRouter({

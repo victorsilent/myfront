@@ -82,9 +82,9 @@ export default {
     computed: {
     	urlAPI(){
     		if(this.picked === "nome" || this.picked === "apelido"){
-    			return "http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos?"+this.picked + "=" + this.termoBuscado
+    			return "http://ec2-34-223-234-6.us-west-2.compute.amazonaws.com:3000/contatos?"+this.picked + "=" + this.termoBuscado
     		}
-    		return "http://ec2-52-38-170-214.us-west-2.compute.amazonaws.com:3000/contatos?de=" + this.de + "&ate=" + this.ate
+    		return "http://ec2-34-223-234-6.us-west-2.compute.amazonaws.com:3000/contatos?de=" + this.de + "&ate=" + this.ate
     	}
     },
 	watch:{
